@@ -392,7 +392,7 @@ class UGATIT(object) :
                                   cam(tensor2numpy(fake_A2B2A_heatmap[0]), self.img_size),
                                   RGB2BGR(tensor2numpy(denorm(fake_A2B2A[0])))), 0)
 
-            cv2.imwrite(os.path.join(self.result_dir, self.dataset, 'test', 'A2B_%d.png' % (n + 1)), A2B * 255.0)
+            #cv2.imwrite(os.path.join(self.result_dir, self.dataset, 'test', 'A2B_%d.png' % (n + 1)), A2B * 255.0)
 
         for n, (real_B, _) in enumerate(self.testB_loader):
             real_B = real_B.to(self.device)
@@ -403,12 +403,13 @@ class UGATIT(object) :
 
             fake_B2B, _, fake_B2B_heatmap = self.genA2B(real_B)
 
-            B2A = np.concatenate((RGB2BGR(tensor2numpy(denorm(real_B[0]))),
-                                  cam(tensor2numpy(fake_B2B_heatmap[0]), self.img_size),
-                                  RGB2BGR(tensor2numpy(denorm(fake_B2B[0]))),
-                                  cam(tensor2numpy(fake_B2A_heatmap[0]), self.img_size),
-                                  RGB2BGR(tensor2numpy(denorm(fake_B2A[0]))),
-                                  cam(tensor2numpy(fake_B2A2B_heatmap[0]), self.img_size),
-                                  RGB2BGR(tensor2numpy(denorm(fake_B2A2B[0])))), 0)
+            #B2A = np.concatenate((RGB2BGR(tensor2numpy(denorm(real_B[0]))),
+                                  #cam(tensor2numpy(fake_B2B_heatmap[0]), self.img_size),
+                                  #RGB2BGR(tensor2numpy(denorm(fake_B2B[0]))),
+                                  #cam(tensor2numpy(fake_B2A_heatmap[0]), self.img_size),
+                                  #RGB2BGR(tensor2numpy(denorm(fake_B2A[0]))),
+                                  #cam(tensor2numpy(fake_B2A2B_heatmap[0]), self.img_size),
+                                  #RGB2BGR(tensor2numpy(denorm(fake_B2A2B[0])))), 0)
 
+            B2A =RGB2BGR(tensor2numpy(denorm(fake_B2A[0])))
             cv2.imwrite(os.path.join(self.result_dir, self.dataset, 'test', 'B2A_%d.png' % (n + 1)), B2A * 255.0)
